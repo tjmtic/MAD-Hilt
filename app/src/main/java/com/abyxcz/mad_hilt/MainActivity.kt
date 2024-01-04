@@ -10,11 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.abyxcz.mad_hilt.ui.theme.MADHiltTheme
+import com.abyxcz.mad_hilt.util.CoroutineContextProvider
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var coroutineContextProvider : CoroutineContextProvider
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,6 +34,12 @@ class MainActivity : ComponentActivity() {
                     Greeting("Android")
                 }
             }
+        }
+
+        lifecycleScope.launch(
+            coroutineContextProvider.default
+        ){
+            //Use Injected Dependency as usual
         }
     }
 }
