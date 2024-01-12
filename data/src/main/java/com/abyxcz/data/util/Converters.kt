@@ -1,4 +1,4 @@
-package com.abyxcz.mad_room.data
+package com.abyxcz.data.util
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

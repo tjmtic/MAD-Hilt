@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.abyxcz.data.entity.ItemEntity
-import com.abyxcz.mad_room.data.Converters
-import com.abyxcz.mad_room.data.ListTypeConverter
+import com.abyxcz.data.util.Converters
+import com.abyxcz.data.util.ListTypeConverter
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
 
