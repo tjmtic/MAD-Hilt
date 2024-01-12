@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MAD-Hilt"
 include(":app")
- 
+include(":data")
