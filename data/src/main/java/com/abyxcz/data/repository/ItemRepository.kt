@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Interface to the data layer.
  */
-interface ItemsRepository {
+interface ItemRepository {
 
     fun observeItems(): Flow<Result<List<Item>>>
 

@@ -1,5 +1,6 @@
 package com.abyxcz.data.repository
 
+import com.abyxcz.data.datasource.DefaultDataSource
 import com.abyxcz.data.datasource.ItemLocalDataSource
 import com.abyxcz.data.model.Item
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,10 +19,10 @@ import com.abyxcz.data.util.Converters
 /**
  * Concrete implementation to load items from the data sources into a cache.
  */
-class ItemsRepositoryImpl(
+class ItemRepositoryImpl(
     //private val itemsRemoteDataSource: ItemsRemoteDataSource,
-    private val itemsLocalDataSource: ItemLocalDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : ItemsRepository {
+    private val itemsLocalDataSource: DefaultDataSource,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : ItemRepository {
 
     override suspend fun getItems(forceUpdate: Boolean): Result<List<Item>> {
         if (forceUpdate) {
