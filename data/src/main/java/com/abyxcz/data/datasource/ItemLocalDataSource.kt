@@ -11,19 +11,19 @@ import kotlinx.coroutines.withContext
 /**
  * Concrete implementation of a data source as a db.
  */
-class ItemsLocalDataSource internal constructor(
-    private val itemsDao: ItemDao,
+class ItemLocalDataSource internal constructor(
+    private val itemDao: ItemDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : DefaultDataSource {
 
     override fun observeItems(): Flow<Result<List<ItemEntity>>> {
-        return itemsDao.observeItems().map {
+        return itemDao.observeItems().map {
             Result.Success(it)
         }
     }
 
     override fun observeItem(ItemId: String): Flow<Result<ItemEntity>> {
-        return itemsDao.observeItemById(ItemId).map {
+        return itemDao.observeItemById(ItemId).map {
             Result.Success(it)
         }
     }
@@ -38,7 +38,7 @@ class ItemsLocalDataSource internal constructor(
 
     override suspend fun getItems(): Result<List<ItemEntity>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(itemsDao.getItems())
+            Result.Success(itemDao.getItems())
         } catch (e: Exception) {
             Result.Error(e)
         }
@@ -46,7 +46,7 @@ class ItemsLocalDataSource internal constructor(
 
     override suspend fun getItem(itemId: String): Result<ItemEntity> = withContext(ioDispatcher) {
         try {
-            val item = itemsDao.getItemById(itemId)
+            val item = itemDao.getItemById(itemId)
             if (item != null) {
                 return@withContext Result.Success(item)
             } else {
@@ -58,26 +58,26 @@ class ItemsLocalDataSource internal constructor(
     }
 
     override suspend fun saveItem(item: ItemEntity) = withContext(ioDispatcher) {
-        itemsDao.insertItem(item)
+        itemDao.insertItem(item)
     }
 
     override suspend fun saveItems(items: List<ItemEntity>) = withContext(ioDispatcher) {
-        itemsDao.insertItems(items)
+        itemDao.insertItems(items)
     }
 
     override suspend fun updateItem(item: ItemEntity) = withContext(ioDispatcher) {
-        itemsDao.updateItem(item)
+        itemDao.updateItem(item)
     }
 
     override suspend fun updateItems(items: List<ItemEntity>) = withContext(ioDispatcher) {
-        itemsDao.updateItems(items)
+        itemDao.updateItems(items)
     }
 
     override suspend fun clearAllItems() = withContext(ioDispatcher) {
-        itemsDao.deleteItems()
+        itemDao.deleteItems()
     }
 
     override suspend fun clearItem(itemId: String) = withContext<Unit>(ioDispatcher) {
-        itemsDao.deleteItemById(itemId)
+        itemDao.deleteItemById(itemId)
     }
 }
